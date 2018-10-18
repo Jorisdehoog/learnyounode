@@ -9,7 +9,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/async2.js"
+            "program": "${workspaceFolder}/async.js"
         }
     ]
 }
