@@ -17,7 +17,6 @@ var getResponse = function(url){
                 body += chunk;
             });
             res.on('end', function(){
-                // console.log(body);
                 resolve(body);
             });
             res.on('error', function(){
@@ -27,10 +26,26 @@ var getResponse = function(url){
     });
 }
 
-getResponse(args[1]).then(function(bodies){
-    console.log('------- This is in the callback ---------')
-    console.log(bodies)
+// var promise1 = getResponse(args[1]).then(function(bodies){
+//     // console.log('------- This is in the callback ---------');
+//     // console.log(bodies);
+//     return bodies;
+// })
+
+promises = [];
+args.forEach(item => {
+    promises.push(getResponse(item).then(function(bodies){
+        return bodies;
+    }));
+});
+
+Promise.all(promises).then(function(values){
+    values.forEach(item => {
+        console.log(item);
+    })
 })
+
+
 
 
 // args.forEach(function(val){
