@@ -4,6 +4,8 @@ var http = require('http');
 // we record the timestamp when a callback finishes
 // a large while loop?
 
+// BTW be advised that this code does not always verify as correct!
+
 
 
 var args = process.argv.slice(2);
@@ -26,11 +28,6 @@ var getResponse = function(url){
     });
 }
 
-// var promise1 = getResponse(args[1]).then(function(bodies){
-//     // console.log('------- This is in the callback ---------');
-//     // console.log(bodies);
-//     return bodies;
-// })
 
 promises = [];
 args.forEach(item => {
@@ -48,20 +45,36 @@ Promise.all(promises).then(function(values){
 
 
 
-// args.forEach(function(val){
-//     http.get(val, function(response){
-//             response.setEncoding('utf8');
-//             body = '';
-//             response.on("data", function(chunk){
-//                 body += chunk;
-//             });
-//             response.on("end", function(){
-//                 // record the timestamp
-//                 var timeStamp1 = Math.floor(Date.now());
-//                 console.log("Timestamp: " + (val.substr(val.length - 1)) + "  +  " +  (timeStamp1));
-//                 // console.log(body);
-//             });
-//             response.on("error", console.error);
-//         });
-// })
+// OFFICIAL SOLUTION LOL //
 
+// var http = require('http')
+// var bl = require('bl')
+// var results = []
+// var count = 0
+
+// function printResults () {
+//   for (var i = 0; i < 3; i++) {
+//     console.log(results[i])
+//   }
+// }
+
+// function httpGet (index) {
+//   http.get(process.argv[2 + index], function (response) {
+//     response.pipe(bl(function (err, data) {
+//       if (err) {
+//         return console.error(err)
+//       }
+
+//       results[index] = data.toString()
+//       count++
+
+//       if (count === 3) {
+//         printResults()
+//       }
+//     }))
+//   })
+// }
+
+// for (var i = 0; i < 3; i++) {
+//   httpGet(i)
+// }
