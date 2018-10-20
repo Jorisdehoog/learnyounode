@@ -6,9 +6,7 @@ var file = process.argv[3];
 
 var server = http.createServer(function(req, res){
     // request handling logic
-    console.log(port);
-    console.log(req.rawHeaders);
-    console.log('Fetch this: ' + file);
+    res.writeHead(200, {'content-type': 'text/plain'})
     
     // represent the requested file as a node stream
     const found = fs.createReadStream(file);
