@@ -12,21 +12,23 @@ var server = http.createServer(function(req, res){
     
     // represent the requested file as a node stream
     const found = fs.createReadStream(file);
-    found.setEncoding('utf8')
-    output = '';
-    found.on('data', function(chunk){
-        // console.log(chunk);
-        output += chunk;
-    })
-    found.on('end', function(){
-        console.log(output)
-        found.pipe(res);
-    })
+    found.pipe(res);
 
-    found.on('close', function(){
-        // stop server
-        res.end();
-    })
+    // found.setEncoding('utf8')
+    // output = '';
+    // found.on('data', function(chunk){
+    //     // console.log(chunk);
+    //     output += chunk;
+    // })
+    // found.on('end', function(){
+    //     console.log(output)
+    //     found.pipe(res);
+    // })
+
+    // found.on('close', function(){
+    //     // stop server
+    //     res.end();
+    // })
     // found.pipe(res);
     
 })
