@@ -14,8 +14,8 @@ var server = net.createServer(function (socket){
     var date = new Date();
     // get the values
     var YYYY = date.getFullYear();
-    var MM = date.getMonth().toString().padStart(2, '0');
-    var DD = date.getDay().toString().padStart(2, '0');
+    var MM = (date.getMonth()+1).toString().padStart(2, '0');
+    var DD = date.getDate().toString().padStart(2, '0');
     var hh = date.getHours().toString().padStart(2, '0');
     var mm = date.getMinutes().toString().padStart(2, '0');
 
@@ -31,8 +31,31 @@ var server = net.createServer(function (socket){
     console.log('\nEnding server')
     socket.end();
     
-})
-server.listen(port);
-server.on('error', console.log)
-server.close();
+}).listen(port);
 
+// server.on('error', console.log)
+// server.close();
+
+
+
+// OFFICIAL SOLUTION
+// var net = require('net')
+
+// function zeroFill (i) {
+//   return (i < 10 ? '0' : '') + i
+// }
+
+// function now () {
+//   var d = new Date()
+//   return d.getFullYear() + '-' +
+//     zeroFill(d.getMonth() + 1) + '-' +
+//     zeroFill(d.getDate()) + ' ' +
+//     zeroFill(d.getHours()) + ':' +
+//     zeroFill(d.getMinutes())
+// }
+
+// var server = net.createServer(function (socket) {
+//   socket.end(now() + '\n')
+// })
+
+// server.listen(Number(process.argv[2]))
