@@ -26,11 +26,13 @@ var server = net.createServer(function (socket){
 
     console.log('Writing timestring to the socket');
     socket.write(timestring);
-    socket.write('\n')
+    socket.write('\n');
 
     console.log('\nEnding server')
     socket.end();
     
 })
 server.listen(port);
+server.on('error', console.log)
+server.close();
 
