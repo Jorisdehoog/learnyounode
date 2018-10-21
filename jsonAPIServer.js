@@ -4,9 +4,9 @@ var url = require('url')
 
 port = process.argv[2];
 
-function getDate(){
+function getDate(timeGot){
     // get the data in the correct format
-    var now = new Date();
+    var now = new Date(timeGot);
     var hour = now.getHours();
     var min = now.getMinutes();
     var sec = now.getSeconds();
@@ -21,8 +21,8 @@ function getDate(){
     
 }
 
-function getUNIXDate(){
-    var now = new Date();
+function getUNIXDate(timeGot){
+    var now = new Date(timeGot);
     var out = new Object();
     out.unixtime = now.getTime();
     return out;
@@ -32,19 +32,19 @@ function getUNIXDate(){
 var server = http.createServer(function(req, res){
     queryString = url.parse(req.url, true);
     queryStringPath = queryString['path'].toString();
-    console.log( queryStringPath);
+    locT = queryStringPath.search('=');
+    timeGot = queryStringPath.substring(locT+1);
+    console.log('Return the hour')
     if (req.method == 'GET'){
         if (queryStringPath.includes('parsetime')){
-            // return the hours
-            console.log('Return the hour')
-            var ret = getDate();
+            var ret = getDate(timeGot);
             retJ = JSON.stringify(ret);
             // console.log(retJ);
             res.writeHead(200, { 'Content-Type': 'application/json' })
             res.write(retJ)
         } else if (queryStringPath.includes('unixtime')){
             console.log('Return unixtime')
-            var ret = getUNIXDate();
+            var ret = getUNIXDate(timeGot);
             retJ = JSON.stringify(ret);
             res.writeHead(200, { 'Content-type': 'application/json' })
             res.write(retJ);
@@ -56,3 +56,41 @@ var server = http.createServer(function(req, res){
     res.end();
 })
 server.listen(port);
+
+
+// OFFICIAL SOLUTION: 
+// var http = require('http')
+//     var url = require('url')
+
+//     function parsetime (time) {
+//       return {
+//         hour: time.getHours(),
+//         minute: time.getMinutes(),
+//         second: time.getSeconds()
+//       }
+//     }
+
+//     function unixtime (time) {
+//       return { unixtime: time.getTime() }
+//     }
+
+//     var server = http.createServer(function (req, res) {
+//       var parsedUrl = url.parse(req.url, true)
+//       var time = new Date(parsedUrl.query.iso)
+//       var result
+
+//       if (/^\/api\/parsetime/.test(req.url)) {
+//         result = parsetime(time)
+//       } else if (/^\/api\/unixtime/.test(req.url)) {
+//         result = unixtime(time)
+//       }
+
+//       if (result) {
+//         res.writeHead(200, { 'Content-Type': 'application/json' })
+//         res.end(JSON.stringify(result))
+//       } else {
+//         res.writeHead(404)
+//         res.end()
+//       }
+//     })
+//     server.listen(Number(process.argv[2]))
