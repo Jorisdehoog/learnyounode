@@ -16,7 +16,7 @@ So far I've done these:
 * Juggling Async <= need to redo this one
 * Time Server
 * File Server
+* HTTP UpperCaser
 
 TO-DO: 
-* HTTP UpperCaser
 * HTTP Json API Server
