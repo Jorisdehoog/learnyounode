@@ -17,6 +17,7 @@ So far I've done these:
 * Time Server
 * File Server
 * HTTP UpperCaser
+* HTTP Json API Server
 
 TO-DO: 
-* HTTP Json API Server
+Nothing, I finished this series. It's been nice, and I want to redo some excercises. 
