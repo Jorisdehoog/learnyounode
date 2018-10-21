@@ -17,3 +17,6 @@ So far I've done these:
 * Time Server
 * File Server
 
+TO-DO: 
+* HTTP UpperCaser
+* HTTP Json API Server
